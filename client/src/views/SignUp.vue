@@ -42,9 +42,10 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["signUser"]),
+    ...mapActions(["signUser", "loginUser"]),
     onSubmit() {
-      this.signUser(this.details).then(this.$router.push("/login"));
+      this.signUser(this.details).then(this.loginUser(this.details))
+      this.$router.push("/");
     }
   }
 };
