@@ -26,7 +26,7 @@
   placeholder="Enter password"
   />
   </b-form-group>
-  <button type="submit"> login</button>
+  <button type="submit"> login</button> OR <router-link to="/signup"> SignUp</router-link>
   </b-form>
   </div>
   </div>
@@ -46,10 +46,12 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["loginUser"]),
+    ...mapActions(["loginUser", "getUser"]),
     signIn() {
-      this.loginUser(this.login);
-      this.$router.push("/");
+      this.loginUser(this.login).then(()=> {
+        this.getUser()
+      })
+      this.$router.push("/"); 
     }
   }
 };
@@ -78,10 +80,10 @@ h4 {
 button {
   background-color: rgb(54, 54, 161);
   line-height: 24px;
-  padding: 7px 16px;
+  padding: 7px 20px;
   height: 37px;
-  width: 100%;
   border: 0;
+  text-transform: uppercase;
   border-radius: 9px;
   cursor: pointer;
   font-weight: 500;
