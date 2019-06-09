@@ -4,12 +4,11 @@ const api = "https://panapi.herokuapp.com/pandora/user/";
 const state = {
   userData: {
     token: localStorage.getItem("jwt"),
-    user: localStorage.getItem("user") || "",
-    username: "",
-    first_name: "",
-    second_name: "",
-    email: "",
-    userId: ""
+    user: localStorage.getItem("user") || undefined,
+    username: null,
+    first_name: null,
+    second_name: null,
+    email: null
   },
   isLoggedIn: localStorage.getItem("jwt"),
   posts: [],
@@ -73,7 +72,7 @@ const mutations = {
       (state.userData.second_name = user.secondName),
       (state.userData.username = user.userName),
       (state.userData.email = user.email),
-      (state.userData.userId = user.id);
+      (state.userData.user = user._id);
   },
   publishedPosts: (state, post) => (state.published = post)
 };
