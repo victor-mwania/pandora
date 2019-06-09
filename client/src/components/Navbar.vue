@@ -1,35 +1,26 @@
 <template>
-    <div>
-        <nav>
-            <div id="title">
-                <router-link to="/">
-                    <h1>Pandora</h1>
-                </router-link>
-            </div>
-            <div id="profile">
-                <!-- shown when user is signed in -->
-                
-                <div v-if="isLoggedIn == undefined">
-                   <router-link to="/login">
-                        <h1>sign in</h1>
-                    </router-link>
-                </div>
-                   <div v-else >
-                     <router-link to="/profile">
-                       <h1> {{ user.username }}</h1>
-                   </router-link>
-               
-                </div>
-                    <!--      <span>
-                 <ul>
-                    <li>Profile</li>
-                    <li>Publish</li>
-                    <li>log out</li>
-                </ul>
-                 </span> -->
-            </div>
-        </nav>
-    </div>
+  <div>
+    <nav>
+      <div id="title">
+        <router-link to="/">
+          <h1>Pandora</h1>
+        </router-link>
+      </div>
+      <div id="profile">
+        <div v-if="user.username == null">
+          <router-link to="/login">
+            <h1>sign in</h1>
+          </router-link>
+        </div>
+        <div v-if="user.username">
+          <router-link to="/profile">
+            <h1>{{ user.username }}</h1>
+          </router-link>
+          | <h1 @click="signOut" id="signOut">Sign Out</h1>
+        </div>
+      </div>
+    </nav>
+  </div>
 </template>
 
 <script>
@@ -38,21 +29,22 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "navbar",
   data() {
-    return {
-      authenticated: false
-    };
+    return {};
   },
   computed: {
-    isLoggedIn() {
-      return this.$store.getters.isLogged;
-    },
-    ...mapGetters(["user", "isLogged"])
+    ...mapGetters(["user"])
   },
    created() {
      this.getUser()
   } ,
   methods: {
-    ...mapActions(["getUser"])
+    ...mapActions(["getUser"]),
+    signOut() {
+
+      localStorage.clear("jwt");
+      localStorage.clear("user");
+      this.getUser()
+    }
   }
 };
 </script>
@@ -84,39 +76,18 @@ nav {
   text-transform: uppercase;
   text-emphasis: none;
   float: right;
+  margin-top: 20px;
+}
+
+#signOut{
+  cursor: pointer;
 }
 
 #profile h1 {
   font-size: 18px;
-  margin-top: 20px;
   padding: 0px 10px;
   text-align: center;
   color: #fff;
-}
-
-#profile ul {
-  display: block;
-  background-color: #2d75bd;
-  list-style: none;
-  position: relative;
-  padding: 0;
-  width: 230px;
-  float: right;
-  position: absolute;
-}
-
-#profile ul li {
-  padding: 4px;
-  display: block;
-  position: relative;
-  padding: 0px 30px;
-  font-size: 20px;
-  text-decoration: none;
-  color: #fff;
-  text-transform: none;
-}
-
-#profile ul li:hover {
-  background-color: rgb(101, 104, 139);
+  display: inline;
 }
 </style>
