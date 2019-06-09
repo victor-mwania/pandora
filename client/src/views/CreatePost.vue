@@ -1,11 +1,12 @@
 <template>
   <div class="container">
-    <h2 class="frm">Create a new post</h2>
+    <h2 class="frm">Create a new Article</h2>
+    <b-form @submit.prevent="onSubmit" >
     <b-form-group label="Title:">
       <b-form-textarea
         v-model="post.title"
         :rows="1"
-        placeholder="Enter title of the post"
+        placeholder="Title of the Article"
         required
       ></b-form-textarea>
     </b-form-group>
@@ -13,13 +14,14 @@
       <b-form-textarea
         v-model="post.body"
         :rows="5"
-        placeholder="Enter body of the post"
+        placeholder="Body of the Article"
         required
       ></b-form-textarea>
     </b-form-group>
-    <button @click="onSubmit" class="btn">
+    <button type="submit" class="btn">
       submit
     </button>
+    </b-form>
   </div>
 </template>
 
@@ -41,8 +43,6 @@ export default {
   },
   methods: {
     onSubmit(e) {
-      e.preventDefault();
-      console.log(this.post);
       axios.post("https://panapi.herokuapp.com/pandora/posts/create", this.post)
     }
   }
@@ -68,10 +68,10 @@ h3 {
 button {
   background-color: rgb(54, 54, 161);
   line-height: 24px;
-  padding: 7px 16px;
+  padding: 7px 26px;
   height: 37px;
-  width: 100%;
   border: 0;
+  text-transform: uppercase;
   border-radius: 9px;
   cursor: pointer;
   font-weight: 500;
