@@ -5,29 +5,24 @@
           Sign up to Pandora
         </h4>
       </div>
-        <b-form @submit.prevent class="mt-3">
+        <b-form @submit.prevent="onSubmit" class="mt-3">
             <b-form-group id="firstName" label="First Name">
-                <b-form-input v-model="details.firstName">
-                </b-form-input>
+                <b-form-input v-model="details.firstName" required/>
             </b-form-group>
             <b-form-group id="lastName" label="Second Name">
-                <b-form-input v-model="details.secondName">
-                </b-form-input>
+                <b-form-input v-model="details.secondName" required/>
             </b-form-group> 
             <b-form-group id="email" label="Email Address:">
-                <b-form-input v-model="details.email" required>
-                </b-form-input>
+                <b-form-input v-model="details.email" required/>
             </b-form-group>
             <b-form-group id="username" label="username">
-                <b-form-input v-model="details.userName">
-                </b-form-input>
+                <b-form-input v-model="details.userName" required/>
             </b-form-group>
             <b-form-group id="password" label="New Password">
-                <b-form-input v-model="details.password" type="password">
-                </b-form-input>
-            </b-form-group>
+                <b-form-input v-model="details.password" type="password" required/>
+           </b-form-group>
+        <button type="submit">Sign Up</button> OR <router-link to="login"> Login</router-link>
         </b-form>
-        <button type="submit" @click="onSubmit">Sign Up</button>
     </div>
 </template>
 
@@ -71,9 +66,9 @@ h4 {
 button {
   background-color: rgb(54, 54, 161);
   line-height: 24px;
-  padding: 7px 16px;
+  padding: 7px 20px;
   height: 37px;
-  width: 100%;
+  text-transform: uppercase;
   border: 0;
   border-radius: 9px;
   cursor: pointer;
